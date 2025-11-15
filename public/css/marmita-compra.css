@@ -167,3 +167,47 @@ body {
     color: #555;
     font-size: 13px;
 }
+
+@media (max-width: 768px) {
+
+    body {
+        margin: 20px;
+    }
+
+    .caixa {
+        grid-template-columns: 1fr; /* vira 1 coluna */
+        gap: 20px;
+    }
+
+    .foto {
+        width: 100%;
+    }
+
+    .info {
+        padding: 20px;
+    }
+
+    .bloco-opcao {
+        padding: 12px;
+    }
+
+    .area-botoes {
+        gap: 8px;
+    }
+
+    .frete {
+        flex-direction: column;
+    }
+
+    .frete button {
+        width: 100%;
+    }
+
+    .comprar {
+        flex-direction: column;
+    }
+
+    .comprar button {
+        width: 100%;
+    }
+}
