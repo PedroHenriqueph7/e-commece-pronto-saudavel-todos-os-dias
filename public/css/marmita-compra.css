@@ -175,7 +175,7 @@ body {
     }
 
     .caixa {
-        grid-template-columns: 1fr; /* vira 1 coluna */
+        grid-template-columns: 1fr;
         gap: 20px;
     }
 
