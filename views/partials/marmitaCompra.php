@@ -36,7 +36,7 @@ $imagem = "public/images/products/marmita_carne.jpg";
         <span class="subtitulo">Temperos e Ingredientes:</span>
 
         <p>
-          O segredo dessa marmita Low Carb está na combinação de ingredientes
+          O Segredo dessa marmita LowCarb está na combinação de ingredientes
           frescos e temperos aromáticos. O Salmão é cuidadosamente grelhado
           após ser marinado com limão siciliano e pimenta do reino. Para o
           acompanhamento, selecionamos abobrinha, berinjela, pimentões e
