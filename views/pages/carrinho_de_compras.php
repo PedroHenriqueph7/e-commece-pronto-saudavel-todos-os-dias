@@ -21,13 +21,12 @@ try {
         if (empty($produtos_do_banco)) {
             $carrinho_vazio = true;
         } else {
-           
+
             foreach ($produtos_do_banco as $p) {
                 $qtd_temp = $_SESSION['carrinho'][$p['id']];
                 $preco_temp = (float)($p['valor'] ?? 0);
                 $total_carrinho += ($preco_temp * $qtd_temp);
             }
-            
         }
     }
 } catch (PDOException $e) {
@@ -73,15 +72,15 @@ try {
                 <tbody id="tab_bo">
                     <?php foreach ($produtos_do_banco as $produto): ?>
                         <?php
-                        
+
                         $quantidade = $_SESSION['carrinho'][$produto['id']];
                         $preco = (float)($produto['valor'] ?? 0);
-                        
-                       
+
+
                         $subtotal = $preco * $quantidade;
-                        
-                        
-                        
+
+
+
                         $imagem_url = (!empty($produto['imagem_url']))
                             ? $baseUrl . $produto['imagem_url']
                             : $baseUrl . '/public/images/sem-imagem.png';
@@ -129,11 +128,11 @@ try {
                 <article id="tab_bo">
                     <?php foreach ($produtos_do_banco as $produto): ?>
                         <?php
-                       
+
                         $quantidade = $_SESSION['carrinho'][$produto['id']];
                         $preco = (float)($produto['valor'] ?? 0);
                         $subtotal = $preco * $quantidade;
-                        
+
                         $imagem_url = (!empty($produto['imagem_url']))
                             ? $baseUrl . $produto['imagem_url']
                             : $baseUrl . '/public/images/sem-imagem.png';
@@ -181,10 +180,16 @@ try {
             </section>
 
             <div id="total-carrinho">
-                <form id="butaos" action="/caminho-para-gateway.php" method="POST">
-                    <div id="botao-pagamento"><a href="<?= $baseUrl ?>/public/index.php?page=produtos">Adicionar +</a></div>
-                    <button type="submit" class="botao-pagamento">Finalizar</button>
-                </form>
+                <?php if (!$carrinho_vazio): ?>
+                    <form method="post" action="<?= $baseUrl ?>/config/pagseguro_create_checkout.php">
+                        <input type="hidden" name="nome" value="<?= htmlspecialchars($usuario->nome ?? '') ?>">
+                        <input type="hidden" name="email" value="<?= htmlspecialchars($usuario->email ?? '') ?>">
+                        <button type="submit" class="btn btn-success">Finalizar compra (PagSeguro)</button>
+                    </form>
+
+                <?php else: ?>
+                    <p>Seu carrinho está vazio.</p>
+                <?php endif; ?>
                 <h3>Total: R$ <?= number_format($total_carrinho, 2, ',', '.') ?></h3>
             </div>
 
@@ -193,7 +198,6 @@ try {
     </section>
 
     <script>
-        
         function alterarQuantidade(botao, delta) {
             const form = botao.closest('form');
             const input = form.querySelector('.input-quantidade');
@@ -202,7 +206,7 @@ try {
             if (valor < 1) valor = 1;
             input.value = valor;
 
-           
+
             form.submit();
         }
     </script>
