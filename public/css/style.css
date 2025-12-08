@@ -186,3 +186,18 @@
   color: #b71c1c;
   border: 1px solid #ef9a9a;
 }
+
+.perfil-layout {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+/* Mantém os cards do tamanho correto */
+.perfil-layout .login-container {
+    max-width: 400px;
+}
+
+

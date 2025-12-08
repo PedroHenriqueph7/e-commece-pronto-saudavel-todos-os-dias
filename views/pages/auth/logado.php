@@ -24,7 +24,7 @@
             width: 100%;
             /* um pouco maior pra cobrir bordas após girar */
             height: 100%;
-            background-image: url(<?= BASE_URL ?>../public/images/header_images/fundo_legumes.png);
+            background-image: url('<?= BASE_URL ?> BASE_URL ?>../public/images/header_images/fundo_legumes.png');
             z-index: -1;
             /* mantém a imagem atrás do conteúdo */
             opacity: 0.4;
@@ -92,6 +92,7 @@
                 
                 <a href="<?= BASE_URL ?>/public/index.php?page=home" class="btn1">Inicio</a>
                 <a href="<?= BASE_URL ?>/public/index.php?page=painel_adm" class="btn1">Marmitas</a>
+                <a href="<?= BASE_URL ?>/public/index.php?page=editar_perfil" class="btn1">Editar Perfil</a>
             </div>
         </div>
     </div>
