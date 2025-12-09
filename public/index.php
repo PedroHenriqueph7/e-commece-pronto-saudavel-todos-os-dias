@@ -110,6 +110,84 @@ if ($action === 'gerenciar_carrinho') {
 
     // Se a página é de admin E o usuário NÃO é admin...
     if (in_array($page, $paginasAdmin) && !$ehAdmin) {
+    $ehAdmin = $usuario_logado && isset($_SESSION['user_tipo']) && $_SESSION['user_tipo'] === 'admin';
+
+    ini_set('display_errors', 1);
+    error_reporting(E_ALL);
+
+    define('VIEWS_PATH', __DIR__ . '/../views');
+
+
+    $action = $_POST['action'] ?? null;
+
+    if ($action === 'gerenciar_carrinho') {
+        
+        require_once VIEWS_PATH . '/partials/gerenciar-carrinho.php';
+        exit; 
+
+    } else {
+        // Decidir qual página carregar
+        $page = isset($_GET['page']) ? $_GET['page'] : 'home';
+
+        $allowedPages = [
+            'home' => VIEWS_PATH . '/pages/home.php',
+            'marmitas' => VIEWS_PATH . '/pages/produtos-marmitas.php',
+            'caldo' => VIEWS_PATH . '/pages/produtos-caldo.php',
+            'fitness' => VIEWS_PATH . '/pages/produtos-fitness.php',
+            'lowcarb' => VIEWS_PATH . '/pages/produtos-lowcarb.php',
+            'outros' => VIEWS_PATH . '/pages/produtos-outros.php',
+            'sobremesa' => VIEWS_PATH . '/pages/produtos-sobremesa.php',
+            'sopa' => VIEWS_PATH . '/pages/produtos-sopa.php',
+            'suco' => VIEWS_PATH . '/pages/produtos-suco.php',
+            'tempero' => VIEWS_PATH . '/pages/produtos-tempero.php',
+            'torta' => VIEWS_PATH . '/pages/produtos-torta.php',
+            'vegana' => VIEWS_PATH . '/pages/produtos-vegana.php',
+            'carrinho_de_compras' => VIEWS_PATH . '/pages/carrinho_de_compras.php',
+            'productDetails' => VIEWS_PATH . '/pages/productDetails.php',
+            'personalChefe' => VIEWS_PATH . '/pages/personal_chefe.php',
+            'about' => VIEWS_PATH . '/pages/about.php',
+            'dashboard_cliente' => VIEWS_PATH . '/pages/auth/logado.php',
+            'login' => VIEWS_PATH . '/pages/auth/login.php',
+            'logout' => VIEWS_PATH . '/pages/auth/logout.php',
+            'registrar' => VIEWS_PATH . '/pages/auth/register.php',
+            'produtos_buscados' =>  VIEWS_PATH . '/pages/produtos_buscados.php',
+            // Adicione as outras páginas aqui
+
+            // --- ROTAS DE ADMINISTRADOR (Mapeando a pasta views/admin) ---
+            'painel_adm'   => VIEWS_PATH . '/admin/administracaoPainel.php',
+            'listar_produtos'   => VIEWS_PATH . '/admin/listarProdutos.php',
+            'inserir_produto'   => VIEWS_PATH . '/admin/inserir.php',
+            'atualizar_produto' => VIEWS_PATH . '/admin/atualizarProdutos.php',
+            'excluir_produto'   => VIEWS_PATH . '/admin/excluirProdutos.php',
+            'recuperar_senha'   => VIEWS_PATH . '/pages/auth/recuperar_senha.php',
+            'nova_senha'      => VIEWS_PATH . '/pages/auth/nova_senha.php'
+        ];
+
+        $paginasAdmin = [
+            'painel_adm',
+            'listar_produtos',
+            'inserir_produto',
+            'atualizar_produto',
+            'excluir_produto'
+        ];
+        $paginasProtegidas = [
+            'dashboard_cliente',
+            'logout'
+        ];
+
+        // 3. Lista de páginas exclusivas para VISITANTES (Quem já logou não deve ver)
+        $paginasGuest = [
+            'login',
+            'registrar',
+            'recuperar_senha',
+            'nova_senha'
+        ];
+
+        if (in_array($page, $paginasProtegidas) && !$usuario_logado) {
+            // Redireciona para o login
+            header("Location: " . BASE_URL . "/public/index.php?page=login");
+            exit;
+        }
 
         // Se ele está logado mas é só cliente, manda pro painel dele
         if ($usuario_logado) {

@@ -94,6 +94,17 @@
                 <a href="<?= BASE_URL ?>/public/index.php?page=painel_adm" class="btn1">Marmitas</a>
                 <a href="<?= BASE_URL ?>/public/index.php?page=editar_perfil" class="btn1">Editar Perfil</a>
             </div>
+<div class="container-conteudo-padrao">
+    
+    <div class="card-login">
+        <h1>Seja bem-vindo, <?= htmlspecialchars($_SESSION["user_nome"], ENT_QUOTES, 'UTF-8'); ?>!</h1>
+        <p>E ótimas compras</p>
+
+        <div class="opcoes-botoes">
+            <a href="<?= BASE_URL ?>/public/index.php?page=home" class="btn-verde">Inicio</a>
+            <a href="<?= BASE_URL ?>/public/index.php?page=painel_adm" class="btn-verde">Marmitas</a>
         </div>
     </div>
+
 </div>
+//
